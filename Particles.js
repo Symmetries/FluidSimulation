@@ -13,6 +13,7 @@ class Particle{
 		pop();
 	}
 	areNeighBors(rangeDist, other){
+		//TODO : change the use of the rangeDist -> the vel of the element
 		let dist = this.getDist(other)
 		return (rangeDist <= dist)
 	}
@@ -27,6 +28,20 @@ class Particle{
 	collisionTest(other){
 		let dist = this.getDist(other)
 		return (dist <= this.radius + other.radius)
+	}
+
+	applyExternalForces(gravity){
+		this.vel += gravity;
+		//add the forces from the input
+	}
+	applyViscosity(neighbors){
+		//TODO
+	}
+	advanceParticles(){
+		//TODO
+	}
+	resolveCollisions(){
+		//TODO
 	}
 
 }

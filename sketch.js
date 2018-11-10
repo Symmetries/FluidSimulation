@@ -7,7 +7,7 @@ let neighborDist = 10;
 
 function setup() {
   createCanvas(400, 400);
-  initLists();
+  //initLists();
 }
 
 function initListParticles(){
@@ -53,9 +53,21 @@ function findNeighBors(){
 		}
 	}
 }
+function doubleDensityRelaxation(){
+	//TODO
+}
 
 
 function draw() {
   background(220);
-  
+  listParticles.forEach(particle =>{
+  	particle.applyExternalForces();
+  	particle.applyViscosity(listNeighBors[listParticles.indexOf(particle)]);
+  	particle.advanceParticles();
+  });
+  findNeighBors();
+  doubleDensityRelaxation();
+  //Resolve Collisions
+  //Update Velocity()
+
 }
