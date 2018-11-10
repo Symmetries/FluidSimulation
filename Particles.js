@@ -12,12 +12,20 @@ class Particle{
 		circle(this.radius);
 		pop();
 	}
-	collisionWall(){
+	areNeighBors(rangeDist, other){
+		let dist = this.getDist(other)
+		return (rangeDist <= dist)
+	}
+
+	collisionWall(walls){
 		//TODO
 	}
 
+	getDist(other){
+		return Math.sqrt((this.pos[0] - other.pos[0])**2 + (this.pos[1] - other.pos[1])**2)//The distance between them
+	}
 	collisionTest(other){
-		let dist = Math.sqrt((this.pos[0] - other.pos[0])**2 + (this.pos[1] - other.pos[1])**2)//The distance between them
+		let dist = this.getDist(other)
 		return (dist <= this.radius + other.radius)
 	}
 
