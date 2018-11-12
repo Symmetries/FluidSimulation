@@ -2,9 +2,12 @@ class Particle{
 	//The particles I am making them to be a circle
 	constructor(pos, vel, radius){
 		this.pos = pos; //the current position of the particle
-		this.pos_prev = [] //The previous position of the particle
+		this.pos_prev = []; //The previous position of the particle
 		this.vel = vel;
 		this.radius = radius;
+	}
+	addVect(vect1, vect2){
+
 	}
 	render(){
 		push();
@@ -34,9 +37,18 @@ class Particle{
 		this.vel += gravity;
 		//add the forces from the input
 	}
-	applyViscosity(neighbors){
-		//TODO
+	applyViscosity(neighbor, timeStep){
+		let v = Vector.sub(neighbor.pos, this.pos);
+		let vel_inward = Vector.scalarProduct(Vector.sub(this.vel, neighbor.vel), v);
+		if(vel_inward > 0){
+			//let length = 
+			//to be continued ...
+		}
+
 	}
+
+
+
 	advanceParticles(){
 		//TODO
 	}
