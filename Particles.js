@@ -5,6 +5,7 @@ class Particle{
 		this.pos_prev = []; //The previous position of the particle
 		this.vel = vel;
 		this.radius = radius;
+
 	}
 	addVect(vect1, vect2){
 
@@ -35,22 +36,27 @@ class Particle{
 
 	applyExternalForces(gravity){
 		this.vel += gravity;
-		//add the forces from the input
+		//add the forces from the input (TODO later)
 	}
-	applyViscosity(neighbor, timeStep){
+	applyViscosity(neighbor, timeStep, alpha, beta){
 		let v = Vector.sub(neighbor.pos, this.pos);
 		let vel_inward = Vector.scalarProduct(Vector.sub(this.vel, neighbor.vel), v);
 		if(vel_inward > 0){
-			//let length = 
-			//to be continued ...
-		}
+			let length = Vector.norm(v);
+			vel_inward /= length;
+			v /= length
+			let q = length/this.radius;//make radius into a static variable
+			let impulse = Vector.scale(v,0.5 * timeStep * (1-q) * (alpha*vel_inward + beta * vel_inward**2))
+			this.vel = Vector.sub(this.vel, impulse);
+		}	
 
 	}
 
 
 
-	advanceParticles(){
-		//TODO
+	advanceParticles(timeStep){
+		this.pos_prev = this.pos.slice();
+		this.pos = timeStep * this.vel;
 	}
 	resolveCollisions(){
 		//TODO
